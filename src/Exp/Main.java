@@ -3,39 +3,58 @@ package Exp;
 public class Main {
 
     public static void main(String[] args) {
-        Object[] participants = new Object[5];
-        participants[0] = new Robot(300, 5000);
-        participants[1] = new Cat(150, 500);
-        participants[2] = new Human(120, 1000);
-        participants[3] = new Cat(140, 800);
-        participants[4] = new Human(110, 3000);
 
-        Object[] obstacles = new Object[4];
-        obstacles[0] = new Treadmill(700);
-        obstacles[1] = new Hurdle(100);
-        obstacles[2] = new Treadmill(2000);
-        obstacles[3] = new Hurdle(120);
+        String[][] arrayStr = new String[4][4];
+        arrayStr[0] = new String[]{"12", "10", "5", "4"};
+        arrayStr[1] = new String[]{"7", "2", "3", "10"};
+        arrayStr[2] = new String[]{"1", "15", "0", "-5"};
+        arrayStr[3] = new String[]{"6", "6", "13", "12"};
 
-        System.out.println(obstacles[0].getClass().getCanonicalName());
+        try{
+            array(arrayStr);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
-        for (int i = 0; i < 5; i++) {
+        arrayStr = new String[5][4];
+        arrayStr[0] = new String[]{"12", "10", "5", "4"};
+        arrayStr[1] = new String[]{"7", "2", "3", "10"};
+        arrayStr[2] = new String[]{"1", "15", "0", "-5"};
+        arrayStr[3] = new String[]{"6", "6", "13", "12"};
+        arrayStr[4] = new String[]{"6", "6", "13", "12"};
+
+        try{
+            array(arrayStr);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        arrayStr = new String[4][4];
+        arrayStr[0] = new String[]{"12", "10", "5", "4"};
+        arrayStr[1] = new String[]{"7", "number", "3", "10"};
+        arrayStr[2] = new String[]{"1", "15", "0", "-5"};
+        arrayStr[3] = new String[]{"6", "6", "13", "12"};
+
+        try{
+            array(arrayStr);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void array(String[][] arrayStr) throws MyArraySizeException, MyArrayDataException {
+        if (arrayStr.length != 4 || arrayStr[0].length != 4)
+            throw new MyArraySizeException();
+        int sum = 0;
+        for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                if (obstacles[j].getClass().getCanonicalName().equals("Exp.Hurdle")) {
-                    assert obstacles[j] instanceof Hurdle;
-                    if (!((Hurdle) obstacles[j]).tryJump(participants[i])) {
-                        System.out.println("Полоса с препятствиями провалена");
-                        break;
-                    }
-                }
-                if (obstacles[j].getClass().getCanonicalName().equals("Exp.Treadmill")) {
-                    assert obstacles[j] instanceof Treadmill;
-                    if (!((Treadmill) obstacles[j]).tryRun(participants[i])) {
-                        System.out.println("Полоса с препятствиями провалена");
-                        break;
-                    }
+                try{
+                    sum += Integer.parseInt(arrayStr[i][j]);
+                } catch (Exception e){
+                    throw new MyArrayDataException(i, j);
                 }
             }
-            System.out.println("Полоса с препятствиями пройдена успешно");
         }
+        System.out.println("Преобразовние массива прошло успешно. Полученная сумма: " + sum);
     }
 }
