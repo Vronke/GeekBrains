@@ -1,60 +1,52 @@
 package Exp;
 
+import java.util.ArrayList;
+
 public class Main {
-
     public static void main(String[] args) {
+        question1();
+        question2();
+    }
 
-        String[][] arrayStr = new String[4][4];
-        arrayStr[0] = new String[]{"12", "10", "5", "4"};
-        arrayStr[1] = new String[]{"7", "2", "3", "10"};
-        arrayStr[2] = new String[]{"1", "15", "0", "-5"};
-        arrayStr[3] = new String[]{"6", "6", "13", "12"};
+    public static void question1(){
+        String[] arrayStr = new String[]{"apple", "home", "human", "chair", "idea", "game", "apple", "human", "apple", "idea", "apple", "snake"};
 
-        try{
-            array(arrayStr);
-        } catch (Exception e){
-            System.out.println(e.getMessage());
+
+        boolean IsContains = false;
+        ArrayList<String> goodArray = new ArrayList<>();
+        for (int i = 0; i < arrayStr.length; i++) {
+            for (String s :
+                    goodArray) {
+                if (s.equals(arrayStr[i])){
+                    IsContains = true;
+                    break;
+                }
+            }
+            if (!IsContains)
+                goodArray.add(arrayStr[i]);
         }
 
-        arrayStr = new String[5][4];
-        arrayStr[0] = new String[]{"12", "10", "5", "4"};
-        arrayStr[1] = new String[]{"7", "2", "3", "10"};
-        arrayStr[2] = new String[]{"1", "15", "0", "-5"};
-        arrayStr[3] = new String[]{"6", "6", "13", "12"};
-        arrayStr[4] = new String[]{"6", "6", "13", "12"};
-
-        try{
-            array(arrayStr);
-        } catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-
-        arrayStr = new String[4][4];
-        arrayStr[0] = new String[]{"12", "10", "5", "4"};
-        arrayStr[1] = new String[]{"7", "number", "3", "10"};
-        arrayStr[2] = new String[]{"1", "15", "0", "-5"};
-        arrayStr[3] = new String[]{"6", "6", "13", "12"};
-
-        try{
-            array(arrayStr);
-        } catch (Exception e){
-            System.out.println(e.getMessage());
+        for (String s :
+                goodArray) {
+            int count = 0;
+            for (int i = 0; i < arrayStr.length; i++) {
+                if (s.equals(arrayStr[i]))
+                    count++;
+            }
+            System.out.println(s + ": " + count);
         }
     }
 
-    public static void array(String[][] arrayStr) throws MyArraySizeException, MyArrayDataException {
-        if (arrayStr.length != 4 || arrayStr[0].length != 4)
-            throw new MyArraySizeException();
-        int sum = 0;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                try{
-                    sum += Integer.parseInt(arrayStr[i][j]);
-                } catch (Exception e){
-                    throw new MyArrayDataException(i, j);
-                }
-            }
-        }
-        System.out.println("Преобразовние массива прошло успешно. Полученная сумма: " + sum);
+    public static void question2(){
+        Directory dir = new Directory();
+        dir.add("name1", "88005553535");
+        dir.add("name2", "89009009090");
+        dir.add("name3", "89553553535");
+        dir.add("name2", "89123456789");
+        dir.add("name4", "89659659595");
+        dir.add("name5", "89095209874");
+        dir.add("name6", "89014230974");
+
+        dir.get("name2");
     }
 }
